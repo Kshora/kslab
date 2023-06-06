@@ -22,7 +22,6 @@ INSTALL_REQUIRES = [
     'matplotlib>=3.3.4',
     'scipy>=1.6.3',
     'datetime',
-    'codecs',
     'plotly>=4.14.3',
     'lmfit>=1.0.2',
 ]
