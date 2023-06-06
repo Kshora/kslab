@@ -18,14 +18,11 @@ PYTHON_REQUIRES = ">=3.7"
 INSTALL_REQUIRES = [
     'numpy >=1.20.3',
     'xarray',
-    'os',
     'pandas>=1.2.4',
     'matplotlib>=3.3.4',
     'scipy>=1.6.3',
-    'math',
     'datetime',
     'codecs',
-    'time',
     'plotly>=4.14.3',
     'lmfit>=1.0.2',
 ]
