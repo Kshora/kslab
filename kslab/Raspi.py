@@ -15,21 +15,35 @@ class Raspi:
         #     makedirs(f'../../out/raspi/{self.date}') #必要に応じてmakedirできるようにしたほうが良い
 
         self.load_data()
-        self.convert_signals()
-        self.update_signals()
+        if self.file_type == "out":
+            self.convert_signals()
+            self.update_signals()
 
     def load_data(self):
         """load data"""
         from datetime import datetime
-        from os.path import join
+        import os
 
-        self.tc = pd.read_csv(join(self.bpath, f"out_{self.stamp}_temp.csv"))
-        self.adc = pd.read_csv(join(self.bpath, f"out_{self.stamp}.csv"))
-        start = datetime.strptime(self.stamp, "%Y%m%d_%H%M%S")
-        self.adc.insert(0, "date", start + pd.to_timedelta(self.adc["time"], unit="s"))
-        self.tc.insert(0, "date", start + pd.to_timedelta(self.tc["time"], unit="s"))
+        if os.path.exists(os.path.join(self.bpath, f"out_{self.stamp}_temp.csv")):
+            self.file_type = "out"
+            self.tc = pd.read_csv(os.path.join(self.bpath, f"out_{self.stamp}_temp.csv"))
+            self.adc = pd.read_csv(os.path.join(self.bpath, f"out_{self.stamp}.csv"))
+        elif os.path.exists(os.path.join(self.bpath, f"cu_{self.stamp}_temp.csv")):
+            self.file_type = "cu"
+            self.tc = pd.read_csv(os.path.join(self.bpath, f"cu_{self.stamp}_temp.csv"),skiprows=7,header=None,names=["date","time","T","PresetT"])
+            self.adc = pd.read_csv(os.path.join(self.bpath, f"cu_{self.stamp}.csv"),skiprows=8,header=None,names=["date","time","P1","P2","Ip","B1","B2","IGmode","IGscale","QMS_signal","P1_c","P2_c","Ip_c","B1_c","B2_c"])
+        else:
+            raise FileNotFoundError(f"out_{self.stamp}_temp.csv or cu_{self.stamp}_temp.csv not found")
+        
+        if self.file_type == "out":
+            start = datetime.strptime(self.stamp, "%Y%m%d_%H%M%S")
+            self.adc.insert(0, "date", start + pd.to_timedelta(self.adc["time"], unit="s"))
+            self.tc.insert(0, "date", start + pd.to_timedelta(self.tc["time"], unit="s"))
         self.start = datetime.strptime(self.stamp, "%Y%m%d_%H%M%S")
-        self.end = self.tc['date'][len(self.tc)-1].to_pydatetime()
+        if self.file_type == "out":
+            self.end = self.tc['date'][len(self.tc)-1].to_pydatetime()
+        else:
+            pass
 
     def convert_signals(self):
         """convert ADC signals from raw volts to proper units
