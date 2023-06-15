@@ -39,3 +39,6 @@ When you have to update me, please smash
 pip install -U git+https://github.com/Kshora/kslab
 ```
 
+# Lisence
+
+This project is licensed under the MIT License, see the LICENSE.txt file for details
