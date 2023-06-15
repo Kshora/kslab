@@ -8,3 +8,5 @@ from .langmuirprobe import *
 from .qms import *
 from .spectrum import *
 from .raspi import *
+
+__version__ = '1.0.1'
