@@ -34,6 +34,10 @@ I don't test environments under Linux and Mac
 The latest version is '1.1.0'
 The last update was on June 15 th '23
 
+'1.0.0' : June 10 th '23
+'1.0.1' : June 15 th '23
+'1.1.0' : June 26 th '23
+
 When you have to update me, please smash
 ```bash
 pip install -U git+https://github.com/Kshora/kslab
