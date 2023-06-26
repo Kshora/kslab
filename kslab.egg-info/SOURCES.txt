@@ -2,7 +2,6 @@ LICENSE
 README.md
 setup.py
 kslab/__init__.py
-kslab/__version__.py
 kslab/graph_tools.py
 kslab/langmuirprobe.py
 kslab/qms.py

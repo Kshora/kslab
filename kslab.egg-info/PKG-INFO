@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: kslab
-Version: 1.0.0
+Version: 1.1.0
 Summary: kslab : useful modueles for data analysis
 Home-page: https://github.com/Kshora/kslab
 Download-URL: https://github.com/Kshora/kslab
@@ -8,7 +8,7 @@ Author: Shora Kurokawa
 Author-email: kurokawa.shora.42w@st.kyoto-u.ac.jp
 Maintainer: Shora Kurokawa
 Maintainer-email: kurokawa.shora.42w@st.kyoto-u.ac.jp
-License: BSD 3-Clause
+License: MIT
 Classifier: Intended Audience :: Science/Research
 Classifier: Programming Language :: Python :: 3
 Classifier: Programming Language :: Python :: 3.6
