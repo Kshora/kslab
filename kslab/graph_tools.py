@@ -3,7 +3,7 @@ from matplotlib.ticker import AutoMinorLocator
 from matplotlib import rc
 
 
-def ticks_isual(ax, **kwarg):
+def ticks_visual(ax, **kwarg):
     """
     makes auto minor and major ticks for matplotlib figure
     makes minor and major ticks thicker and longer
