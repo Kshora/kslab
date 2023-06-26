@@ -10,7 +10,7 @@ NAME = 'kslab'
 AUTHOR = 'Shora Kurokawa'
 AUTHOR_EMAIL = 'kurokawa.shora.42w@st.kyoto-u.ac.jp'
 URL = 'https://github.com/Kshora/kslab'
-LICENSE = 'BSD 3-Clause'
+LICENSE = 'MIT'
 DOWNLOAD_URL = 'https://github.com/Kshora/kslab'
 VERSION = kslab.__version__
 PYTHON_REQUIRES = ">=3.7"
@@ -46,11 +46,6 @@ CLASSIFIERS = [
     'Framework :: Matplotlib',
 ]
 
-# with open('README.rst', 'r') as fp:
-#     readme = fp.read()
-# with open('CONTACT.txt', 'r') as fp:
-#     contacts = fp.read()
-# long_description = readme + '\n\n' + contacts
 
 setup(name=NAME,
       author=AUTHOR,

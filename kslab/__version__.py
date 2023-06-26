@@ -13,4 +13,12 @@
 # limitations under the License.
 
 
-__version__ = "0.1.8"
+__version__ = "1.1.0"
+
+"""
+    Release notes:
+    1.1.0
+        - Update raspi.py for new data format
+    1.0.0
+        - Initial release
+"""
