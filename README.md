@@ -34,9 +34,9 @@ I don't test environments under Linux and Mac
 The latest version is '1.1.0'
 The last update was on June 15 th '23
 
-'1.0.0' : June 6 th '23
-'1.0.1' : June 15 th '23
-'1.1.0' : June 26 th '23
+'1.0.0' : June 6 th '23<br>
+'1.0.1' : June 15 th '23<br>
+'1.1.0' : June 26 th '23<br>
 
 When you have to update me, please smash
 ```bash
