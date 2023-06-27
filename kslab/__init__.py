@@ -26,10 +26,12 @@ __all__ = ["graph_tools", "langmuirprobe", "qms", "spectrum", "raspi"]
 # limitations under the License.
 
 
-__version__ = "1.1.1"
+__version__ = "1.1.2"
 
 """
     Release notes:
+    1.1.2
+        - Update raspi parser
     1.1.1
         - Updata raspi parser for new data format
     1.1.0
