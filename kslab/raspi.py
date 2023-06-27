@@ -28,17 +28,17 @@ class Raspi:
 
         try:
             self.path = os.path.join(self.bpath,self.path[0])
-            print(self.path)
+            import re
             with open(self.path) as f:
                 reader = csv.reader(f)
                 for row in reader:
                     if row[0].startswith("#"):
-                        if not len(row) == 1:
-                            head = row[0].replace(' ','').replace('#','').split(':')
-                            self.data_config[head[0]] = [head[1]] + row[1:]
+                        if len(row) > 1:
+                            self.data_config[re.sub('[# :]','',row[0])] =  [re.sub('[ ]','',r) for r in row[1:]]
+                        if 'Data' in row[0]:
+                            break
                     else:
                         break
-
             self.data = pd.read_csv(self.path,names=self.data_config['Columns'],comment='#')
         except IndexError:
             raise FileNotFoundError(f"no data found for {self.timepath}")
