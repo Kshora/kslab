@@ -18,6 +18,8 @@ class Raspi:
 
         self.load_data()
 
+        self.__update_data()
+
         rcParams["font.size"] = 28
 
     def load_data(self):
@@ -45,7 +47,7 @@ class Raspi:
     
 
         
-    def update_data(self):
+    def __update_data(self):
         self.data['datetime'] = self.data['date'].apply(lambda x: int(x.translate(str.maketrans({' ': '', '-': '', ':': ''})).split('.')[0]))
         self.start_time = self.data['datetime'].iloc[0]
         self.end_time = self.data['datetime'].iloc[-1]
