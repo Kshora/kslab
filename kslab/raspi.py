@@ -25,7 +25,6 @@ class Raspi:
 
         self.path = [l for l in os.listdir(self.bpath) if l.endswith(".csv") and self.timepath in l]
         self.data_config = {}
-        skip_rows = 0
 
         try:
             self.path = os.path.join(self.bpath,self.path[0])
@@ -35,14 +34,16 @@ class Raspi:
                 for row in reader:
                     if row[0].startswith("#"):
                         if not len(row) == 1:
-                            self.data_config[row[0].replace(' ','').replace('#','').replace(':','')] = row[1:]
-                        skip_rows += 1
+                            head = row[0].replace(' ','').replace('#','').split(':')
+                            self.data_config[head[0]] = [head[1]] + row[1:]
                     else:
                         break
 
-            self.data = pd.read_csv(self.path, skiprows=skip_rows,names=self.data_config['Columns'])
+            self.data = pd.read_csv(self.path,names=self.data_config['Columns'],comment='#')
         except IndexError:
             raise FileNotFoundError(f"no data found for {self.timepath}")
+    
+
         
     def update_data(self):
         self.data['datetime'] = self.data['date'].apply(lambda x: int(x.translate(str.maketrans({' ': '', '-': '', ':': ''})).split('.')[0]))
