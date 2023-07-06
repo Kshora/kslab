@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from graph_tools import *
+from .graph_tools import *
 
 class Qms:
     def __init__(self, datapath):

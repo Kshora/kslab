@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import numpy as np
-from graph_tools import *
+from .graph_tools import *
 
 class Langmuirprobe(object):
     def __init__(self,basepath,date,species):

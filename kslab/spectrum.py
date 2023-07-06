@@ -3,7 +3,7 @@ import xarray as xr
 from os.path import join,exists
 from os import listdir
 import matplotlib.pyplot as plt
-from graph_tools import *
+from .graph_tools import *
 import pandas as pd
 
 balmers = np.array([777.194,656.279, 486.135, 434.0472, 410.1734]) #OI, Halph, Hbeta, Hgammma Hdelta

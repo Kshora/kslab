@@ -85,9 +85,27 @@ class Raspi:
         
     def plot(self, **kws):
         """plot data"""
-        self.plot_data = kws.get("data", None)
-        if self.plot_data is None:
-            self.time_formatter(**kws)
+        xlabel = kws.get("xlabel", "time")
+        yscale = kws.get("yscale", "linear")
+
+        st = kws.get("st", self.start_time)
+        et = kws.get("et", self.end_time)
+
+        fig = plt.figure(figsize=(16,18),dpi=50,facecolor='w')
+        gs = fig.add_gridspec(3, 1, height_ratios=[1,1,1],hspace=0.15)
+        ax0 = plt.subplot(gs[0, 0])
+        ax1 = plt.subplot(gs[1, 0],sharex=ax0)
+        ax2 = plt.subplot(gs[2, 0],sharex=ax0)
+        self.axs = [ax0,ax1,ax2]
+
+        self.time_formatter(st=st,et=et)
+
+        self.plot_pressure(st=st,et=et,xlabel=xlabel,yscale=yscale,fig=None,ax=self.axs[0])
+        self.plot_current(st=st,et=et,xlabel=xlabel,fig=None,ax=self.axs[1])
+        self.plot_mfc(st=st,et=et,xlabel=xlabel,fig=None,ax=self.axs[2])
+
+        [ax.tick_params(axis='x', which='both', bottom=True, top=False, labelbottom=False) for ax in self.axs[:-1]]
+        [ax.set_xlabel('') for ax in self.axs[:-1]]
         
 
         
@@ -113,12 +131,19 @@ class Raspi:
         plot_upstream = kws.get("plot_upstream", True)
         plot_downstream = kws.get("plot_downstream", True)
 
-        self.plot_data = kws.get("data", None)
-        fig = kws.get("fig", plt.figure(figsize=(16,9),dpi=50,facecolor='w'))
-        ax1 = kws.get("ax1", fig.add_subplot(111)) # plot ax for upstream
-        ax2 = kws.get("ax2", ax1.twinx()) # plot ax for downstream
-        axs = [ax1,ax2]
+        fig = kws.get("fig", False)
+        if fig == False:
+            fig = plt.figure(figsize=(16,9),dpi=50,facecolor='w')
+            ax = fig.add_subplot(111)
+        else:
+            ax = kws.get("ax",False) # plot ax for upstream
+            if ax == False:
+                raise ValueError("ax must be specified if fig is specified")
+        axx = kws.get("axx", ax.twinx()) # plot ax for downstream
+        axs = [ax,axx]
+
         self.time_formatter(st=st,et=et)
+
         pressures = {"upstream" :{
                                 "data": ["Pu_c","Bu_c"],
                                 "color": ["#c9004d","#ffb405"], 
@@ -135,23 +160,23 @@ class Raspi:
             pressure = pressures["upstream"]
             [axs[0].plot(self.plot_data[xlabel],self.plot_data[pressure["data"][i]],label=pressure["label"][i],c=pressure["color"][i]) for i in range(2)]
             axs[0].set_ylim(self.pu_lim)
-            axs[0].set_ylabel('Pressure upstream (Torr)',fontsize=34)
+            axs[0].set_ylabel('P upstream (Torr)',fontsize=34)
             axs[0].set_xlabel('Time (s)',fontsize=34)
-            axs[0].legend(loc='upper left')
+            axs[0].legend(loc=1, ncol=2, bbox_to_anchor=[0.36, 1.17],fontsize=24)
                     
             
         if plot_downstream:
             pressure = pressures["downstream"]
             [axs[1].plot(self.plot_data[xlabel],self.plot_data[pressure["data"][i]],label=pressure["label"][i],c=pressure["color"][i]) for i in range(2)]
             axs[1].set_ylim(self.pd_lim)
-            axs[1].set_ylabel('Pressure douwnstream (Torr)',fontsize=34)
-            axs[1].legend(loc='upper right')
+            axs[1].set_ylabel('P douwnstream (Torr)',fontsize=34)
+            axs[1].legend(loc=1, ncol=2, bbox_to_anchor=[0.9, 1.17],fontsize=24)
 
         [ax.set_yscale(yscale) for ax in axs]
         if xlabel == "date":
             xticks_label = [i for n,i in enumerate(self.plot_data[xlabel]) if n%(len(self.plot_data)//10) == 0]
-            ax1.set_xticks(xticks_label)
-            ax1.set_xticklabels([i[11:19] for i in xticks_label],rotation=45,ha='right')
+            axs[0].set_xticks(xticks_label)
+            axs[0].set_xticklabels([i[11:19] for i in xticks_label],rotation=45,ha='right')
             self.xtick_label = xticks_label
 
 
@@ -173,11 +198,17 @@ class Raspi:
         st = kws.get("st", self.start_time)
         et = kws.get("et", self.end_time)
 
-        self.plot_data = kws.get("data", None)
-        fig = kws.get("fig", plt.figure(figsize=(16,9),dpi=50,facecolor='w'))
-        ax = kws.get("ax", fig.add_subplot(111))
+        fig = kws.get("fig", False)
+        if fig == False:
+            fig = plt.figure(figsize=(16,9),dpi=50,facecolor='w')
+            ax = fig.add_subplot(111)
+        else:
+            ax = kws.get("ax",False) # plot ax for upstream
+            if ax == False:
+                raise ValueError("ax must be specified if fig is specified")
 
         self.time_formatter(st=st,et=et)
+
         ax.plot(self.plot_data[xlabel],self.plot_data["Ip_c"],label="Ip",c="#8d3de3")
         ax.set_xlabel('Time (s)',fontsize=34)
         ax.set_ylabel('Current (A)',fontsize=34)
@@ -200,23 +231,30 @@ class Raspi:
         st = kws.get("st", self.start_time)
         et = kws.get("et", self.end_time)
 
-        self.plot_data = kws.get("data", None)
-        fig = kws.get("fig", plt.figure(figsize=(16,9),dpi=50,facecolor='w'))
-        ax = kws.get("ax", fig.add_subplot(111))
+        fig = kws.get("fig", False)
+        if fig == False:
+            fig = plt.figure(figsize=(16,9),dpi=50,facecolor='w')
+            ax = fig.add_subplot(111)
+        else:
+            ax = kws.get("ax",False) # plot ax for upstream
+            if ax == False:
+                raise ValueError("ax must be specified if fig is specified")
+
+        self.time_formatter(st=st,et=et)
 
         mfc = { "mfc1": {"data":["PresetV1","MFC1_c"],
                          "color":["k","k"],
                          "line_style":["--","-"],
-                         "label":["PresetV1","MFC1_sig"],
+                         "label":["PresetV1","MFC1 sig"],
                          },
                 "mfc2": {"data":["PresetV2","MFC2_c"],
                          "color":["r","r"],
                          "line_style":["--","-"],
-                         "label":["PresetV2","MFC2_sig"],
+                         "label":["PresetV2","MFC2 sig"],
                          },
                 }
 
-        self.time_formatter(st=st,et=et)
+        
         for i in mfc:
             [ax.plot(self.plot_data[xlabel],self.plot_data[mfc[i]["data"][j]],label=mfc[i]["label"][j],c=mfc[i]["color"][j],ls=mfc[i]["line_style"][j]) for j in range(2)]
         ax.set_xlabel('Time (s)',fontsize=34)
@@ -228,7 +266,7 @@ class Raspi:
             ax.set_xticklabels([i[11:19] for i in xticks_label],rotation=45,ha='right')
             self.xtick_label = xticks_label
         
-        ax.legend(loc='upper right')
+        ax.legend(loc=1, ncol=4, bbox_to_anchor=[1.0, 1.17],fontsize=24)
 
         grid_visual(ax)
         ticks_visual(ax)
