@@ -47,7 +47,7 @@ pip install -U git+https://github.com/Kshora/kslab
 
 When I have to update, I have to update dist by 
 ```bash
-python setup.py stdist
+python setup.py sdist
 ```
 
 
