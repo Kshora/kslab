@@ -26,7 +26,7 @@ __all__ = ["graph_tools", "langmuirprobe", "qms", "spectrum", "raspi"]
 # limitations under the License.
 
 
-__version__ = "1.2.2"
+__version__ = "1.2.3"
 
 """
     Release notes:
