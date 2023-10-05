@@ -30,6 +30,8 @@ __version__ = "1.2.2"
 
 """
     Release notes:
+    1.2.3
+        - Fixed a bug in the scraping tool
     1.2.2
         - Add Scraping tool
     1.2.1

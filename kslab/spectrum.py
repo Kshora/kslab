@@ -585,8 +585,17 @@ class NIST:
         self.xrange = xrange
 
         dfs = pd.read_html(url)
-        df = dfs[3]
-        df = df.dropna(subset=["Ion",wl,intensity]).reset_index(drop=True)
+        try:
+            df = dfs[3]
+            df = df.dropna(subset=[wl,intensity]).reset_index(drop=True)
+        except:
+            try:
+                df = dfs[2]
+                df = df.dropna(subset=[wl,intensity]).reset_index(drop=True)
+            except:
+                print("No data")
+                return
+            
         for i in range(len(df)):
             try:
                 df.loc[i,wl] = float(df.loc[i,wl])
