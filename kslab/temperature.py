@@ -8,7 +8,7 @@ import matplotlib.dates as mdates
 from matplotlib.ticker import AutoMinorLocator, LogLocator
 from matplotlib import rcParams
 
-class Raspi:
+class Temperature:
 
     def __init__(self, bpath="", timepath=""):
 
@@ -25,7 +25,7 @@ class Raspi:
     def load_data(self):
         """load data"""
 
-        self.path = [l for l in os.listdir(self.bpath) if l.endswith(".csv") and self.timepath in l]
+        self.path = [l for l in os.listdir(self.bpath) if l.endswith(".csv") and l.startswith("temp") and self.timepath in l]
         self.config = {}
 
         try:

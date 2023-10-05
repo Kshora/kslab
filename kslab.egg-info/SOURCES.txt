@@ -7,6 +7,7 @@ kslab/langmuirprobe.py
 kslab/qms.py
 kslab/raspi.py
 kslab/spectrum.py
+kslab/temperature.py
 kslab.egg-info/PKG-INFO
 kslab.egg-info/SOURCES.txt
 kslab.egg-info/dependency_links.txt

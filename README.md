@@ -39,6 +39,7 @@ The last update was on June 27 th '23
 '1.1.0' : June 26 th '23<br>
 '1.1.1' : June 27 th '23<br>
 '1.1.2' : June 27 th '23<br>
+'1.1.4' : October 5 th '23<br>
 
 When you have to update me, please smash
 ```bash

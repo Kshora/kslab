@@ -564,3 +564,74 @@ def get_pixel(rot):
 
     i = (rot - 200000)//5000
     return rot_pixel[i][1] + rotation_to_pixelgap(rot)[0]*(rot%5000)/5000
+
+class NIST:
+    ### 原子輝線を見つけるのが面倒だからNISTのサイトからスクレイピングしてみる
+
+    def __init__(self, url,xrange):
+        import pandas as pd
+        import numpy as np
+        import matplotlib.pyplot as plt
+
+        wl = 'Observed Wavelength Air (nm)'
+        intensity = 'Rel. Int. (?)'
+
+        self.wl = wl
+        self.intensity = intensity
+
+        self.url = url
+        self.xrange = xrange
+
+        dfs = pd.read_html(url)
+        df = dfs[3]
+        df = df.dropna(subset=["Ion",wl,intensity]).reset_index(drop=True)
+        for i in range(len(df)):
+            try:
+                df.loc[i,wl] = float(df.loc[i,wl])
+                while True:
+                    try:
+                        df.loc[i,intensity] = int(df.loc[i,intensity])
+                        break
+                    except:
+                        df.loc[i,intensity] = int(df.loc[i,intensity][:-1])
+            except:
+                df.drop(i,inplace=True)
+        df = df.reset_index(drop=True)
+
+        self.df = df
+
+    def gauss(self, x, a, mu, fwhm):# a:振幅 mu:平均 fwhm:半値全幅
+        sigma = fwhm / (2*np.sqrt(2*np.log(2)))
+        return a * np.exp(-(x - mu)**2 / (2*sigma**2))
+
+    def plot(self,xlim=None,ylim=None,title=None,fwhm=0.1):
+        x = np.linspace(500,600,10000)
+        spectra = np.zeros(len(x))
+        for i in range(len(self.df[self.wl])):
+            xc = self.df[self.wl][i]
+            y = self.gauss(x,float(self.df[self.intensity][i]),xc,fwhm)
+            spectra += np.array(y)
+
+        if xlim and (xlim[0] < self.xrange[0]):
+            xlim[0] = self.xrange[0]
+        elif xlim and (xlim[1] > self.xrange[1]):
+            xlim[1] = self.xrange[1]
+
+        self._plot(x,spectra,xlim,ylim,title)
+            
+
+    def _plot(self,x,y,xlim,ylim,title):
+        fig = plt.figure(figsize=(16,9),dpi=50)
+        ax = fig.add_subplot(111)
+        ax.plot(x,y)
+        ax.set_xlabel("Wavelength (nm)")
+        ax.set_ylabel("Intensity (arb unit)")
+        if title:
+            ax.set_title(title)
+        if xlim:
+            ax.set_xlim(xlim)
+        if ylim:
+            ax.set_ylim(ylim)
+        ax.legend(loc="best")
+        ticks_visual(ax)
+        grid_visual(ax)

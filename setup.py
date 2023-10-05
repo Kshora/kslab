@@ -24,6 +24,7 @@ INSTALL_REQUIRES = [
     'datetime',
     'plotly>=4.14.3',
     'lmfit>=1.0.2',
+    'xarray',
 ]
 
 
