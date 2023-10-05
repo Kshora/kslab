@@ -26,10 +26,12 @@ __all__ = ["graph_tools", "langmuirprobe", "qms", "spectrum", "raspi"]
 # limitations under the License.
 
 
-__version__ = "1.2.1"
+__version__ = "1.2.2"
 
 """
     Release notes:
+    1.2.2
+        - Add Scraping tool
     1.2.1
         - Update a tool below
     1.2.0

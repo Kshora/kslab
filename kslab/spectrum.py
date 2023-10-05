@@ -568,10 +568,12 @@ def get_pixel(rot):
 class NIST:
     ### 原子輝線を見つけるのが面倒だからNISTのサイトからスクレイピングしてみる
 
-    def __init__(self, url,xrange):
+    def __init__(self, atom,xrange):
         import pandas as pd
         import numpy as np
         import matplotlib.pyplot as plt
+
+        url = get_url(atom,xrange)
 
         wl = 'Observed Wavelength Air (nm)'
         intensity = 'Rel. Int. (?)'
@@ -599,6 +601,7 @@ class NIST:
         df = df.reset_index(drop=True)
 
         self.df = df
+
 
     def gauss(self, x, a, mu, fwhm):# a:振幅 mu:平均 fwhm:半値全幅
         sigma = fwhm / (2*np.sqrt(2*np.log(2)))
@@ -634,3 +637,45 @@ class NIST:
             ax.set_ylim(ylim)
         ticks_visual(ax)
         grid_visual(ax)
+
+
+def get_url(atom,xrange,browser="edge"):
+    import time
+    NIST_url = "https://physics.nist.gov/PhysRefData/ASD/lines_form.html"
+    try:
+        from selenium import webdriver
+        from selenium.webdriver.common.by import By
+
+    except:
+        print("Please install selenium")
+        return
+    if browser == "edge":
+        try:
+            from selenium.webdriver.edge.options import Options
+            options = Options()
+            options.add_argument('--headless')
+            driver = webdriver.Edge(options=options)
+        except:
+            print("Check your browser or install edge driver")
+            return
+    elif browser == "chrome":
+        try:
+            from selenium.webdriver.chrome.options import Options
+            options = Options()
+            options.add_argument('--headless')
+            driver = webdriver.Chrome(options=options)
+        except:
+            print("Check your browser or install chrome driver")
+            return
+    else:
+        print("I'm sorry but this browser is not supported")
+        return
+    driver.get(NIST_url)
+    driver.find_element(By.NAME, "spectra").send_keys(atom)
+    driver.find_element(By.NAME, "low_w").send_keys(xrange[0])
+    driver.find_element(By.NAME, "upp_w").send_keys(xrange[1])
+    driver.find_element(By.NAME, "submit").click()
+    url = driver.current_url
+    driver.quit()
+
+    return url
