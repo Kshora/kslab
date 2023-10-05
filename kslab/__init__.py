@@ -26,11 +26,13 @@ __all__ = ["graph_tools", "langmuirprobe", "qms", "spectrum", "raspi"]
 # limitations under the License.
 
 
-__version__ = "1.1.4"
+__version__ = "1.2.1"
 
 """
     Release notes:
-    1.1.4
+    1.2.1
+        - Update a tool below
+    1.2.0
         - Add NIST Atomic Spectra visualization tool
     1.1.2
         - Update raspi parser

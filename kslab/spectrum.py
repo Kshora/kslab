@@ -632,6 +632,5 @@ class NIST:
             ax.set_xlim(xlim)
         if ylim:
             ax.set_ylim(ylim)
-        ax.legend(loc="best")
         ticks_visual(ax)
         grid_visual(ax)
