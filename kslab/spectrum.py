@@ -629,10 +629,14 @@ class NIST:
         elif xlim and (xlim[1] > self.xrange[1]):
             xlim[1] = self.xrange[1]
 
+        self.spectra = spectra
+
         self._plot(x,spectra,xlim,ylim,title)
             
 
     def _plot(self,x,y,xlim,ylim,title):
+        from matplotlib import rcParams
+        rcParams['font.size'] = 28
         fig = plt.figure(figsize=(16,9),dpi=50)
         ax = fig.add_subplot(111)
         ax.plot(x,y)
