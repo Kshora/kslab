@@ -617,7 +617,7 @@ class NIST:
         return a * np.exp(-(x - mu)**2 / (2*sigma**2))
 
     def plot(self,xlim=None,ylim=None,title=None,fwhm=0.1):
-        x = np.linspace(500,600,10000)
+        x = np.linspace(self.xrange[0],self.xrange[1],10000)
         spectra = np.zeros(len(x))
         for i in range(len(self.df[self.wl])):
             xc = self.df[self.wl][i]
