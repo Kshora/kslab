@@ -565,17 +565,21 @@ def get_pixel(rot):
     i = (rot - 200000)//5000
     return rot_pixel[i][1] + rotation_to_pixelgap(rot)[0]*(rot%5000)/5000
 
+
 class NIST:
     ### 原子輝線を見つけるのが面倒だからNISTのサイトからスクレイピングしてみる
 
-    def __init__(self, atom,xrange):
+    def __init__(self, atom,xrange,mode='ritz'):
         import pandas as pd
         import numpy as np
         import matplotlib.pyplot as plt
+        import re
 
         url = get_url(atom,xrange)
-
-        wl = 'Observed Wavelength Air (nm)'
+        if mode == 'ritz':
+            wl = 'Ritz Wavelength Air (nm)'
+        elif mode == 'observed':
+            wl = 'Observed Wavelength Air (nm)'
         intensity = 'Rel. Int. (?)'
 
         self.wl = wl
@@ -598,7 +602,7 @@ class NIST:
             
         for i in range(len(df)):
             try:
-                df.loc[i,wl] = float(df.loc[i,wl])
+                df.loc[i,wl] = float(re.sub(" ","",df.loc[i,wl]))
                 while True:
                     try:
                         df.loc[i,intensity] = int(df.loc[i,intensity])
@@ -616,18 +620,23 @@ class NIST:
         sigma = fwhm / (2*np.sqrt(2*np.log(2)))
         return a * np.exp(-(x - mu)**2 / (2*sigma**2))
 
-    def plot(self,xlim=None,ylim=None,title=None,fwhm=0.1):
-        x = np.linspace(self.xrange[0],self.xrange[1],10000)
+    def plot(self,xlim=None,ylim=None,title=None,fwhm=0.1,dx=10000):
+        if xlim == None:
+            xlim = self.xrange
+        xlim = list(xlim)
+        if xlim[0] < self.xrange[0]:
+            xlim[0] = self.xrange[0]
+        if xlim[1] > self.xrange[1]:
+            xlim[1] = self.xrange[1]
+
+        x = np.linspace(xlim[0],xlim[1],dx)
         spectra = np.zeros(len(x))
         for i in range(len(self.df[self.wl])):
             xc = self.df[self.wl][i]
             y = self.gauss(x,float(self.df[self.intensity][i]),xc,fwhm)
             spectra += np.array(y)
 
-        if xlim and (xlim[0] < self.xrange[0]):
-            xlim[0] = self.xrange[0]
-        elif xlim and (xlim[1] > self.xrange[1]):
-            xlim[1] = self.xrange[1]
+
 
         self.spectra = spectra
 
