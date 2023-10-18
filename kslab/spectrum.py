@@ -589,6 +589,7 @@ class NIST:
         self.xrange = xrange
 
         dfs = pd.read_html(url)
+        self.dfs = dfs
         try:
             df = dfs[3]
             df = df.dropna(subset=[wl,intensity]).reset_index(drop=True)
@@ -602,13 +603,16 @@ class NIST:
             
         for i in range(len(df)):
             try:
-                df.loc[i,wl] = float(re.sub(" ","",df.loc[i,wl]))
+                if type(df.loc[i,wl]) == str:
+                    df.loc[i,wl] = float(re.sub(" ","",df.loc[i,wl]))
+                j = 1
                 while True:
                     try:
                         df.loc[i,intensity] = int(df.loc[i,intensity])
                         break
                     except:
-                        df.loc[i,intensity] = int(df.loc[i,intensity][:-1])
+                        df.loc[i,intensity] = int(df.loc[i,intensity][:-j])
+                        j += 1
             except:
                 df.drop(i,inplace=True)
         df = df.reset_index(drop=True)
