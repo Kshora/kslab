@@ -26,10 +26,12 @@ __all__ = ["graph_tools", "langmuirprobe", "qms", "spectrum", "raspi"]
 # limitations under the License.
 
 
-__version__ = "1.2.5"
+__version__ = "1.2.6"
 
 """
     Release notes:
+    1.2.6
+        - Selenium version requirement
     1.2.5
         - Fixed a bug in the scraping tool
     1.2.4

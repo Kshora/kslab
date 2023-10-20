@@ -25,6 +25,7 @@ INSTALL_REQUIRES = [
     'plotly>=4.14.3',
     'lmfit>=1.0.2',
     'xarray',
+    'selenium>=4.13.0',
 ]
 
 

@@ -569,13 +569,13 @@ def get_pixel(rot):
 class NIST:
     ### 原子輝線を見つけるのが面倒だからNISTのサイトからスクレイピングしてみる
 
-    def __init__(self, atom,xrange,mode='ritz'):
+    def __init__(self, atom,xrange,mode='ritz',browser="edge"):
         import pandas as pd
         import numpy as np
         import matplotlib.pyplot as plt
         import re
 
-        url = get_url(atom,xrange)
+        url = get_url(atom,xrange,browser)
         if mode == 'ritz':
             wl = 'Ritz Wavelength Air (nm)'
         elif mode == 'observed':
@@ -665,7 +665,7 @@ class NIST:
         grid_visual(ax)
 
 
-def get_url(atom,xrange,browser="edge"):
+def get_url(atom,xrange,browser):
     import time
     NIST_url = "https://physics.nist.gov/PhysRefData/ASD/lines_form.html"
     try:
