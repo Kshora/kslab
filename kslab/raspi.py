@@ -88,6 +88,8 @@ class Raspi:
         xlabel = kws.get("xlabel", "time")
         yscale = kws.get("yscale", "linear")
 
+        xlim = kws.get("xlim", None)
+
         st = kws.get("st", self.start_time)
         et = kws.get("et", self.end_time)
 
@@ -100,9 +102,9 @@ class Raspi:
 
         self.time_formatter(st=st,et=et)
 
-        self.plot_pressure(st=st,et=et,xlabel=xlabel,yscale=yscale,fig=None,ax=self.axs[0])
-        self.plot_current(st=st,et=et,xlabel=xlabel,fig=None,ax=self.axs[1])
-        self.plot_mfc(st=st,et=et,xlabel=xlabel,fig=None,ax=self.axs[2])
+        self.plot_pressure(st=st,et=et,xlabel=xlabel,yscale=yscale,fig=None,ax=self.axs[0],xlim=xlim)
+        self.plot_current(st=st,et=et,xlabel=xlabel,fig=None,ax=self.axs[1],xlim=xlim)
+        self.plot_mfc(st=st,et=et,xlabel=xlabel,fig=None,ax=self.axs[2],xlim=xlim)
 
         [ax.tick_params(axis='x', which='both', bottom=True, top=False, labelbottom=False) for ax in self.axs[:-1]]
         [ax.set_xlabel('') for ax in self.axs[:-1]]
@@ -134,6 +136,8 @@ class Raspi:
         
         xlabel = kws.get("xlabel", "time")
         yscale = kws.get("yscale", "linear")
+
+        xlim = kws.get("xlim", None)
 
         st = kws.get("st", self.start_time)
         et = kws.get("et", self.end_time)
@@ -196,6 +200,9 @@ class Raspi:
             axs[0].set_xticklabels([i[11:19] for i in xticks_label],rotation=45,ha='right')
             self.xtick_label = xticks_label
 
+        if xlim is not None:
+            [ax.set_xlim(xlim) for ax in axs]
+
 
 
         axs[1].spines['right'].set_color('r')
@@ -211,6 +218,8 @@ class Raspi:
         # plot current data
         xlabel = kws.get("xlabel", "time")
         yscale = kws.get("yscale", "linear")
+
+        xlim = kws.get("xlim", None)
 
         st = kws.get("st", self.start_time)
         et = kws.get("et", self.end_time)
@@ -247,6 +256,9 @@ class Raspi:
             ax.set_xticklabels([i[11:19] for i in xticks_label],rotation=45,ha='right')
             self.xtick_label = xticks_label
 
+        if xlim is not None:
+            ax.set_xlim(xlim)
+
         grid_visual(ax)
         ticks_visual(ax)
 
@@ -255,6 +267,8 @@ class Raspi:
         # PresetP and sig are plotted in the same figure
         xlabel = kws.get("xlabel", "time")
         yscale = kws.get("yscale", "linear")
+
+        xlim = kws.get("xlim", None)
 
         st = kws.get("st", self.start_time)
         et = kws.get("et", self.end_time)
@@ -296,6 +310,9 @@ class Raspi:
             self.xtick_label = xticks_label
         
         ax.legend(loc=1, ncol=4, bbox_to_anchor=[1.0, 1.17],fontsize=24)
+
+        if xlim is not None:
+            ax.set_xlim(xlim)
 
         grid_visual(ax)
         ticks_visual(ax)

@@ -26,10 +26,12 @@ __all__ = ["graph_tools", "langmuirprobe", "qms", "spectrum", "raspi"]
 # limitations under the License.
 
 
-__version__ = "1.2.6"
+__version__ = "1.2.7"
 
 """
     Release notes:
+    1.2.7
+        - Add xlim in raspi plot
     1.2.6
         - Selenium version requirement
     1.2.5
