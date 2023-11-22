@@ -51,6 +51,7 @@ class Raspi:
         self.data['datetime'] = self.data['date'].apply(lambda x: int(x.translate(str.maketrans({' ': '', '-': '', ':': ''})).split('.')[0]))
         self.start_time = self.data['datetime'].iloc[0]
         self.end_time = self.data['datetime'].iloc[-1]
+        self.data["date"] = pd.to_datetime(self.data["date"])
 
     def prepera_dataset(self):
         self.experiment_dataset = []
