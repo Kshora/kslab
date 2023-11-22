@@ -26,10 +26,12 @@ __all__ = ["graph_tools", "langmuirprobe", "qms", "spectrum", "raspi"]
 # limitations under the License.
 
 
-__version__ = "1.2.7"
+__version__ = "1.2.8"
 
 """
     Release notes:
+    1.2.8
+        - Fixed a bug in the qms_ig_calibration
     1.2.7
         - Add xlim in raspi plot
     1.2.6

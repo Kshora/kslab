@@ -163,7 +163,10 @@ def qms_ig_calibration(raspi, qms, rangeis,gain = 1, show_summary = False, mass_
 
     a = rangeis[0].strftime("%Y%m%d%H%M%S")
     b = rangeis[1].strftime("%Y%m%d%H%M%S")
-    raspi_calib = raspi.adc.query(f"{a} < date < {b}").reset_index(drop=True)[['date','time','pd']]
+    try:
+        raspi_calib = raspi.adc.query(f"{a} < date < {b}").reset_index(drop=True)[['date','time','pd']]
+    except:
+        raspi_calib = raspi.data.query(f"{a} < date < {b}").reset_index(drop=True)[['date','time','pd']]
     qms_calib = qms.data.query(f"{a} < date < {b}").reset_index(drop=True)[[mass,'tsec']]
 
     # add_strdatetime(raspi_calib)
