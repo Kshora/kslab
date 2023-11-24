@@ -26,10 +26,12 @@ __all__ = ["graph_tools", "langmuirprobe", "qms", "spectrum", "raspi"]
 # limitations under the License.
 
 
-__version__ = "1.2.10"
+__version__ = "1.2.11"
 
 """
     Release notes:
+    1.2.11
+        - Fixed a bug in the spectrum.py
     1.2.10
         - Fixed a bug in the spectrum.py
     1.2.9
