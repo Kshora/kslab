@@ -26,10 +26,12 @@ __all__ = ["graph_tools", "langmuirprobe", "qms", "spectrum", "raspi"]
 # limitations under the License.
 
 
-__version__ = "1.2.9"
+__version__ = "1.2.10"
 
 """
     Release notes:
+    1.2.10
+        - Fixed a bug in the spectrum.py
     1.2.9
         - Fixed a bug in the qms_ig_calibration
     1.2.8

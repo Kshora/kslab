@@ -504,6 +504,7 @@ def O2_per(path):
 
     ls = path.split("-")
     per = [i for i in ls if "%" in i]
+    per = per.split(".")
 
     return "0%" if per==[] else per[0]
 
