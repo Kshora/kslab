@@ -26,10 +26,12 @@ __all__ = ["graph_tools", "langmuirprobe", "qms", "spectrum", "raspi"]
 # limitations under the License.
 
 
-__version__ = "1.2.11"
+__version__ = "1.3.0"
 
 """
     Release notes:
+    1.3.0
+        - Update instrumental function of spectrometer
     1.2.11
         - Fixed a bug in the spectrum.py
     1.2.10

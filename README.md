@@ -31,8 +31,8 @@ qms = Qms(datapath)
 I don't test environments under Linux and Mac
 
 # Version , update
-The latest version is '1.2.11'
-The last update was on November 24 th '23
+The latest version is '1.3.0'
+The last update was on November 30 th '23
 
 '1.0.0' : June 6 th '23<br>
 '1.0.1' : June 15 th '23<br>
@@ -51,6 +51,7 @@ The last update was on November 24 th '23
 '1.2.9' : November 22 th '23<br>
 '1.2.10' : November 24 th '23<br>
 '1.2.11' : November 24 th '23<br>
+'1.3.0' : November 30 th '23<br>
 
 
 When you have to update me, please smash
@@ -58,7 +59,7 @@ When you have to update me, please smash
 pip install -U git+https://github.com/Kshora/kslab
 ```
 
-When I have to update, I have to update dist by 
+When I have to update, I have to update dist by
 ```bash
 python setup.py sdist
 ```
