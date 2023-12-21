@@ -10,8 +10,8 @@ balmers = np.array([777.194,656.279, 486.135, 434.0472, 410.1734]) #OI, Halph, H
 rs = np.array([4950, 52378,88590,97600,101540])
 fun =  np.poly1d(np.polyfit(rs,balmers,2))
 fwhm_function = {"OI":0.02117, "alpha":0.03594, "beta":0.04283, "gamma":0.04395, "delta":0.04503}
-fwhm_function = {"OI":0.0265398209965583, "alpha":0.04324539134295555, "beta":0.05567520915034212, "gamma":0.056584914841423514, "delta":0.04503} # 2023/11/28 Instrumental Faction
-
+fwhm_function = {"OI":0.02117, "alpha":0.04324539134295555, "beta":0.05567520915034212, "gamma":0.056584914841423514, "delta":0.04503} # 2023/11/28 Instrumental Faction
+### "OI":0.0265398209965583, 
 
 class Spectrometer(object):
 

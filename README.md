@@ -31,8 +31,8 @@ qms = Qms(datapath)
 I don't test environments under Linux and Mac
 
 # Version , update
-The latest version is '1.3.0'
-The last update was on November 30 th '23
+The latest version is '1.3.1'
+The last update was on Decembeer 21 th '23
 
 '1.0.0' : June 6 th '23<br>
 '1.0.1' : June 15 th '23<br>
@@ -52,6 +52,7 @@ The last update was on November 30 th '23
 '1.2.10' : November 24 th '23<br>
 '1.2.11' : November 24 th '23<br>
 '1.3.0' : November 30 th '23<br>
+'1.3.1' : December 21 th '23<br>
 
 
 When you have to update me, please smash
