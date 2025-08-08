@@ -28,7 +28,7 @@ qms = Qms(datapath)
 ```
 
 # Note 
-I don't test environments under Linux and Mac
+I didn't test environments under Linux and Mac
 
 # Version , update
 The latest version is '1.3.1'
